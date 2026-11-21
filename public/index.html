@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Mini Checkout</h1>
+    <p class="subtitle">Demo store — synthetic products, no real payment.</p>
+  </header>
+
+  <main id="checkout-view" class="layout">
+    <section class="panel" aria-labelledby="products-heading">
+      <h2 id="products-heading">Products</h2>
+      <ul id="product-list" class="product-list">
+        <!-- rendered by checkout.js -->
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="cart-heading">
+      <h2 id="cart-heading" tabindex="-1">Your cart</h2>
+
+      <div id="error-summary" class="error-summary" role="alert" tabindex="-1" hidden>
+        <h3 class="error-summary__title">Your order could not be placed</h3>
+        <ul id="error-list"></ul>
+      </div>
+
+      <form id="checkout-form" novalidate>
+        <fieldset id="checkout-fieldset" class="plain-fieldset">
+          <legend class="visually-hidden">Cart and customer details</legend>
+
+          <p id="empty-cart" class="empty-cart">Your cart is empty.</p>
+
+          <table id="cart-table" class="cart-table" hidden>
+            <caption class="visually-hidden">Items in your cart</caption>
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col" class="num">Price</th>
+                <th scope="col" class="qty-col">Quantity</th>
+                <th scope="col" class="num">Line total</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="cart-rows"></tbody>
+          </table>
+
+          <dl class="totals">
+            <dt>Items</dt>
+            <dd id="item-count" data-testid="item-count">0</dd>
+            <dt>Order total</dt>
+            <dd id="order-total" data-testid="order-total" aria-live="polite">$0.00</dd>
+          </dl>
+
+          <div class="field" id="name-field">
+            <label for="customer-name">Full name <span aria-hidden="true">*</span><span class="visually-hidden">(required)</span></label>
+            <input id="customer-name" name="customerName" type="text" autocomplete="name"
+                   maxlength="80" required aria-required="true" aria-describedby="name-error">
+            <p id="name-error" class="field-error" hidden></p>
+          </div>
+
+          <button id="place-order" type="submit" class="btn btn-primary">Place order</button>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+
+  <main id="confirmation-view" class="layout layout--single" hidden>
+    <div id="confirmations"><!-- one confirmation per placed order --></div>
+    <button id="new-order" type="button" class="btn">Start a new order</button>
+  </main>
+
+  <script src="checkout.js"></script>
+</body>
+</html>
