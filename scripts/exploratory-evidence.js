@@ -26,7 +26,7 @@ async function observe(page) {
       confirmations: document.querySelectorAll('[data-testid="confirmation"]').length,
       references: [...document.querySelectorAll('[data-testid="order-reference"]')].map((e) => e.textContent),
       button: btn.offsetParent ? `${btn.textContent}${btn.closest('fieldset').disabled ? ' (disabled)' : ''}` : '(hidden)',
-      alert: summary.hidden ? '' : [...summary.querySelectorAll('li')].map((li) => li.textContent).join(' | '),
+      alert: summary.hidden ? '' : [...summary.querySelectorAll('li')].map((li) => li.textContent).join(' + '),
       name: document.getElementById('customer-name').value,
       total: document.getElementById('order-total').textContent,
       pageScrollWidth: document.documentElement.scrollWidth,

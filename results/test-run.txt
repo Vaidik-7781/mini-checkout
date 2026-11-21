@@ -1,0 +1,24 @@
+
+Running 19 tests using 1 worker
+
+  ✓   1 [chromium] › tests/checkout.spec.js:25:3 › Required checks › TC-01 successful checkout shows exactly one confirmation with a reference (1.5s)
+  ✓   2 [chromium] › tests/checkout.spec.js:50:3 › Required checks › TC-02 missing name blocks checkout, explains why, and keeps the cart (641ms)
+  ✓   3 [chromium] › tests/checkout.spec.js:86:3 › Required checks › TC-03 quantity changes update line totals and the exact order total (651ms)
+  ✓   4 [chromium] › tests/regression.spec.js:16:3 › Regression checks › TC-04 empty cart blocks checkout and keeps the name typed (1.8s)
+  ✓   5 [chromium] › tests/regression.spec.js:35:3 › Regression checks › TC-05 empty cart and blank name are reported together (354ms)
+  ✓   6 [chromium] › tests/regression.spec.js:43:3 › Regression checks › TC-06 whitespace-only name is treated as blank (488ms)
+  ✓   7 [chromium] › tests/regression.spec.js:52:3 › Regression checks › TC-07 double-clicking Place order produces one confirmation (471ms)
+  ✓   8 [chromium] › tests/regression.spec.js:65:3 › Regression checks › TC-08 five rapid clicks and repeated Enter still produce one confirmation (500ms)
+  ✓   9 [chromium] › tests/regression.spec.js:75:3 › Regression checks › TC-09 duplicate submit events in the same tick are ignored (guard does not rely on the disabled button) (506ms)
+  ✓  10 [chromium] › tests/regression.spec.js:89:3 › Regression checks › TC-10 cart and name cannot change while the order is processing (552ms)
+  ✓  11 [chromium] › tests/regression.spec.js:102:3 › Regression checks › TC-11 invalid typed quantities are rejected and the previous quantity restored (972ms)
+  ✓  12 [chromium] › tests/regression.spec.js:121:3 › Regression checks › TC-12 adding the same product again increments its quantity (455ms)
+  ✓  13 [chromium] › tests/regression.spec.js:129:3 › Regression checks › TC-13 removing items updates the total and returns to the empty state (507ms)
+  ✓  14 [chromium] › tests/regression.spec.js:141:3 › Regression checks › TC-14 HTML in the name is shown as text, not executed (1.3s)
+  ✓  15 [chromium] › tests/regression.spec.js:153:3 › Regression checks › TC-15 "Start a new order" returns to a clean checkout (1.3s)
+  ✓  16 [chromium] › tests/regression.spec.js:168:3 › Regression checks › TC-16 keyboard-only checkout works (1.4s)
+  ✓  17 [chromium] › tests/regression.spec.js:192:3 › Regression checks › TC-17 [D-01] a maximum-length name without spaces wraps inside the confirmation (1.8s)
+  ✓  18 [chromium] › tests/regression.spec.js:203:3 › Regression checks › TC-18 [D-02] at phone width (375 px) the cart fits without horizontal scrolling and still works (1.4s)
+  ✓  19 [chromium] › tests/regression.spec.js:218:3 › Regression checks › TC-19 [D-03] "Add to cart" buttons are disabled while the order is processing (519ms)
+
+  19 passed (18.1s)

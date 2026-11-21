@@ -11,15 +11,17 @@ module.exports = defineConfig({
   reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
   use: {
     baseURL: `http://localhost:${PORT}`,
-    // PW_CHANNEL=chrome runs against an installed Google Chrome instead of
-    // Playwright's bundled Chromium.
-    channel: process.env.PW_CHANNEL || undefined,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     video: 'off',
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.env.PW_CHANNEL || undefined } },
+    // Optional: ALL_BROWSERS=1 also runs Firefox and WebKit (needs `npx playwright install`).
+    ...(process.env.ALL_BROWSERS ? [
+      { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+      { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    ] : []),
   ],
   webServer: {
     command: `node server.js ${PORT}`,
