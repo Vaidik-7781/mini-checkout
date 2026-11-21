@@ -4,11 +4,11 @@
   "description": "Single-page checkout with Playwright browser tests",
   "scripts": {
     "start": "node server.js",
-    "test": "playwright test",
-    "test:chrome": "PW_CHANNEL=chrome playwright test",
-    "test:required": "playwright test tests/checkout.spec.js",
-    "test:headed": "playwright test --headed --workers=1",
-    "test:repeat": "playwright test --repeat-each=10",
+    "test": "playwright test --project=chromium",
+    "test:chrome": "playwright test --project=chrome",
+    "test:required": "playwright test tests/checkout.spec.js --project=chromium",
+    "test:headed": "playwright test --project=chromium --headed --workers=1",
+    "test:repeat": "playwright test --project=chromium --repeat-each=10",
     "report": "playwright show-report",
     "evidence": "node scripts/exploratory-evidence.js evidence/latest",
     "mutation": "node scripts/mutation-check.js"

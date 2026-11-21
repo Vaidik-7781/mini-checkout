@@ -85,6 +85,6 @@ Run against `npm start`, then open http://localhost:4173 with a fresh tab for ea
 
 ## 7. Environment and limitations
 
-* Chromium only: Google Chrome for Testing 153 (`PW_CHANNEL=chrome`), and Playwright 1.63 on Linux, headless.
-* Firefox and WebKit projects are configured (`ALL_BROWSERS=1`) but **were not run**: the browser downloads were blocked in the test environment.
+* Chromium only: Google Chrome for Testing 153 (`npm run test:chrome`), and Playwright 1.63 on Linux, headless.
+* Firefox and WebKit projects are configured (`--project=firefox`, `--project=webkit`) but **were not run**: the browser downloads were blocked in the test environment.
 * The order "processing" is a simulated 800 ms delay. There is no server, so server-side idempotency (for example, retries after a network failure) cannot be tested here.

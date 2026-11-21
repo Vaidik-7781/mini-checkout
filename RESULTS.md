@@ -17,7 +17,7 @@
 
 ## 1. Automated checks
 
-Command: `PW_CHANNEL=chrome npx playwright test`. Full output is in [`results/test-run.txt`](results/test-run.txt).
+Command: `npm run test:chrome` (installed Google Chrome). Full output is in [`results/test-run.txt`](results/test-run.txt).
 
 | ID | Check | Result | Time |
 |---|---|---|---|
@@ -138,5 +138,5 @@ All three were found on **build 1** during exploratory testing (MT-07, MT-08, an
 
 ## 5. Not tested
 
-* **Firefox and WebKit.** The projects are configured (`ALL_BROWSERS=1`), but the browser downloads were blocked in the environment used for this run.
+* **Firefox and WebKit.** The projects are configured (`--project=firefox`, `--project=webkit`), but the browser downloads were blocked in the environment used for this run.
 * **Real screen readers** (NVDA, VoiceOver). Semantics were checked through roles and accessible names in the tests (TC-16), but not with assistive technology.

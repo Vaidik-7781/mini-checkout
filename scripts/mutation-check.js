@@ -52,8 +52,10 @@ for (const m of mutants) {
   for (const f of ['index.html', 'styles.css']) fs.copyFileSync(path.join(root, 'public', f), path.join(dir, f));
   fs.writeFileSync(path.join(dir, 'checkout.js'), code);
 
-  const run = spawnSync('npx', ['playwright', 'test', '--reporter=json'], {
+  const project = process.env.PW_PROJECT || 'chromium'; // PW_PROJECT=chrome to use installed Chrome
+  const run = spawnSync('npx', ['playwright', 'test', `--project=${project}`, '--reporter=json'], {
     cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024,
+    shell: process.platform === 'win32', // npx is npx.cmd on Windows
     env: { ...process.env, PUBLIC_DIR: dir, PORT: String(port++), CI: '1' },
   });
   const report = JSON.parse(run.stdout);

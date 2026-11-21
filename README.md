@@ -48,10 +48,10 @@ npm run test:headed                 # watch the tests run in a visible browser
 npm run report                      # open the HTML report from the last run
 ```
 
-* To use an installed Google Chrome instead of downloading Chromium: `npm run test:chrome` (or set `PW_CHANNEL=chrome`).
-* To also run Firefox and WebKit: `npx playwright install && ALL_BROWSERS=1 npm test`.
+* To use your installed Google Chrome instead of downloading Chromium: `npm run test:chrome`.
+* To also run Firefox and WebKit: `npx playwright install firefox webkit`, then `npx playwright test --project=firefox --project=webkit`.
 * To check for flakiness: `npm run test:repeat`, which runs the suite 10 times.
-* Playwright starts `node server.js` itself, so you don't need to run `npm start` first. If something is already running on port 4173, set `PORT=xxxx`.
+* Playwright starts `node server.js` itself, so you don't need to run `npm start` first. If something else is using port 4173, stop it or set the `PORT` environment variable.
 
 ### How the tests are written
 
@@ -81,7 +81,7 @@ Step-by-step manual instructions are in [TEST_PLAN.md §5](TEST_PLAN.md#5-manual
 ## Test that the tests work
 
 ```bash
-npm run mutation      # injects 10 checkout bugs one at a time; each must make at least one test fail
+npm run mutation      # injects 10 checkout bugs one at a time; each must make at least one test fail (takes ~3 min)
 ```
 
 ## Design notes

@@ -17,11 +17,11 @@ module.exports = defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.env.PW_CHANNEL || undefined } },
-    // Optional: ALL_BROWSERS=1 also runs Firefox and WebKit (needs `npx playwright install`).
-    ...(process.env.ALL_BROWSERS ? [
-      { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-      { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-    ] : []),
+    // Same tests on your installed Google Chrome (no browser download): --project=chrome
+    { name: 'chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } },
+    // Optional extra engines (need `npx playwright install firefox webkit`): --project=firefox / --project=webkit
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
     command: `node server.js ${PORT}`,
