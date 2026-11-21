@@ -254,6 +254,10 @@
     return 'ORD-' + s;
   }
 
+  function setAddButtonsDisabled(disabled) {
+    el.productList.querySelectorAll('[data-add]').forEach(function (b) { b.disabled = disabled; });
+  }
+
   function onSubmit(evt) {
     evt.preventDefault();
     // Idempotency guard: this check-and-set is synchronous, so a second click,
@@ -277,6 +281,7 @@
     el.placeOrder.textContent = 'Placing order…';
     el.placeOrder.setAttribute('aria-busy', 'true');
     el.fieldset.disabled = true; // cart and name cannot change mid-submit
+    setAddButtonsDisabled(true); // D-03 fix: "Add to cart" must not look active while processing
 
     var order = {
       reference: newReference(),
@@ -327,6 +332,7 @@
     setNameError('');
     showSummary([]);
     el.fieldset.disabled = false;
+    setAddButtonsDisabled(false);
     el.placeOrder.textContent = 'Place order';
     el.placeOrder.removeAttribute('aria-busy');
     renderCart();

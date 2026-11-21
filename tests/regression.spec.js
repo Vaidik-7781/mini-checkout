@@ -186,4 +186,43 @@ test.describe('Regression checks', () => {
     await expect(checkout.confirmations).toHaveCount(1);
     await expect(checkout.confirmations.getByRole('heading', { name: 'Order confirmed' })).toBeFocused();
   });
+
+  // ---- Regression tests for defects found in exploratory testing (see RESULTS.md) ----
+
+  test('TC-17 [D-01] a maximum-length name without spaces wraps inside the confirmation', async ({ page }) => {
+    await checkout.add('Desk Plant');
+    await checkout.nameInput.fill('W'.repeat(80));
+    await checkout.placeOrderButton.click();
+    await expect(checkout.confirmations).toHaveCount(1);
+    const panel = await checkout.confirmations.first().evaluate((e) => ({ scroll: e.scrollWidth, client: e.clientWidth }));
+    expect(panel.scroll).toBeLessThanOrEqual(panel.client);
+    const pageWidth = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(pageWidth, 'page must not scroll horizontally').toBeLessThanOrEqual(0);
+  });
+
+  test('TC-18 [D-02] at phone width (375 px) the cart fits without horizontal scrolling and still works', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 740 });
+    await checkout.add('Desk Plant');
+    await checkout.add('Linen Notebook');
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow, 'page must not scroll horizontally').toBeLessThanOrEqual(0);
+    await expect(checkout.page.getByRole('button', { name: 'Remove Linen Notebook from cart' })).toBeInViewport();
+
+    await checkout.increase('Desk Plant');
+    await expect(checkout.orderTotal).toHaveText('$21.69'); // 8.70 + 12.99
+    await checkout.nameInput.fill('Asha Rao');
+    await checkout.placeOrderButton.click();
+    await expect(checkout.confirmationTotal).toHaveText('$21.69');
+  });
+
+  test('TC-19 [D-03] "Add to cart" buttons are disabled while the order is processing', async ({ page }) => {
+    await page.clock.pauseAt(Date.now() + 1_000_000);
+    await checkout.add('Desk Plant');
+    await checkout.nameInput.fill('Asha Rao');
+    await checkout.placeOrderButton.click();
+    await expect(page.getByRole('button', { name: 'Add Linen Notebook to cart' })).toBeDisabled();
+    await page.clock.runFor(10_000);
+    await checkout.newOrderButton.click();
+    await expect(page.getByRole('button', { name: 'Add Linen Notebook to cart' })).toBeEnabled();
+  });
 });
